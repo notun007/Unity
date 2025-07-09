@@ -1,0 +1,109 @@
+<p-confirmDialog [style]="{width: '20vw'}" [baseZIndex]="10000"></p-confirmDialog>
+<p-panel>
+  <ng-template pTemplate="header"> <span class="text-primary font-semibold text-xl">{{'MODULES' |
+      translate}}</span></ng-template>
+<form [formGroup]="frm">
+  <input type="hidden" formControlName="id" value="0">   
+    <div class="formgrid grid">
+      <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+        <label>{{'NAME' | translate}}</label><span class="text-danger"> *</span>
+        <input id="modulename" placeholder="{{'NAME' | translate}}" formControlName="name" type="text" pInputText
+          class="p-2  w-full" />
+        <span *ngIf="frm.controls['name'].invalid && frm.controls['name'].touched " class="text-danger">
+          {{'MODULENAME' | translate}} {{'REQUIRED' | translate}}
+        </span>
+      </div>
+
+      <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+        <label>{{'NAMEBN'|translate}}</label>
+        <input type="text" class="p-2  w-full" placeholder="{{'NAMEBN'|translate}}" formControlName="nameBn"
+            pInputText /><br>
+    </div>  
+
+    <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+      <label>{{'SerialNo' | translate}}</label>
+      <input type="text" class="p-2 w-full" pInputText placeholder="{{'SerialNo' | translate}}" formControlName="serialNo" />
+    </div>
+    
+      <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+        <label>{{'ICON' | translate}}</label>
+        <input type="text" pInputText class="p-2  w-full" placeholder="{{'ICON' | translate}}" formControlName="icon">        
+      </div>
+
+      <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+        <div class="form-check sm:mt-2 md:mt-5">
+          <input class="form-check-input" type="checkbox" value="true" id="flexCheckDefault" [defaultChecked]="true"  formControlName="isActive">
+          <label class="form-check-label" for="flexCheckDefault">{{'ISACTIVE' | translate}}</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <div class="float-right">
+        <p-button (click)="save()" [disabled]="frm.invalid" *ngIf="formId==0" styleClass="p-button-success p-button-sm"
+          type="submit" icon="pi pi-check" label="{{'SAVE'|translate}}"></p-button>
+        <p-button (click)="save()" [disabled]="frm.invalid" *ngIf="formId==1" styleClass="p-button-success p-button-sm"
+          type="submit" icon="pi pi-check" label="{{'UPDATE'|translate}}"></p-button>&nbsp;
+        <p-button type="reset" *ngIf="formId==0||formId==1" styleClass="p-button-warning p-button-sm"
+          icon="pi pi-refresh" (click)="reset()" label="{{'RESET'|translate}}"></p-button>
+      </div>
+    </div>  
+</form>
+</p-panel>
+
+
+
+<p-table #dt [value]="modulelist" dataKey="id" [rowHover]="true" [rows]="25" [showCurrentPageReport]="true"
+  [rowsPerPageOptions]="[25,25,50,100]" [paginator]="true"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+  [globalFilterFields]="['name']" styleClass="p-datatable-sm p-datatable-gridlines pt-3" [tableStyle]="{'min-width': '50rem'}">
+
+  <ng-template pTemplate="caption">
+    <div class="flex">
+      <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
+        (click)="clear(dt.filterGlobal($any($event.target).value, ''))"></button>
+      <span class="p-input-icon-left ml-auto float-right">
+        <i class="pi pi-search"></i>
+        <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+          placeholder="Search keyword" />
+      </span>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th class="vcenter text-center"  [width]="10">{{'SlNo'|translate}}</th>
+      <th class="vcenter text-center">{{'MODULENAME' | translate}}</th>
+      <th class="vcenter text-center">{{'NAMEBN' | translate}}</th>
+      <th class="vcenter text-center">{{'ICON' | translate}}</th>
+      <th class="vcenter text-center">{{'SerialNo' | translate}}</th>
+      <th class="vcenter text-center">{{'ACTION' | translate}}</th>
+    </tr>
+    <tr>
+      <div [hidden]="progressStatus" style="position: absolute; z-index: 10; ">
+       <p-progressSpinner></p-progressSpinner>
+      </div>
+   </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-r let-rowIndex="rowIndex">
+    <tr class="p-selectable-row">
+      <td> {{rowIndex + 1}}</td>
+      <td>{{r.name}}</td>
+      <td>{{r.nameBn}}</td>     
+      <td>{{r.icon}}</td>
+      <td style="text-align: right;">{{r.serialNo}}</td>
+      <td class="vcenter text-center">
+        <p-button type="button" styleClass="p-button-success p-button-sm mr-2 px-2 py-1" icon="pi pi-pencil"
+          (click)="edit(r)" data-toggle="tooltip" title="{{'EDIT' | translate}}"></p-button>
+        
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="9">No data found.</td>
+    </tr>
+  </ng-template>
+</p-table>

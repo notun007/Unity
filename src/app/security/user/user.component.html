@@ -1,0 +1,192 @@
+<p-confirmDialog [baseZIndex]="10000"></p-confirmDialog>
+<p-panel>
+    <ng-template pTemplate="header"> <span class="text-primary font-semibold text-xl">{{'ADDUSER' |
+            translate}}</span></ng-template>
+    <form [formGroup]="frm">
+        <input type="hidden" formControlName="id" value="0">
+        <div class="formgrid grid">
+
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'TYPE'|translate}}</label><span class="text-danger"> *</span>
+                <p-dropdown [options]="companyTypeList" [style]="{'width':'100%'}" formControlName="cmnCompanyTypeId"
+                    [filter]="true" filterBy="shortName" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                   (onChange)="getCompanyByCompanyTypeOne()" optionLabel="shortName" optionValue="id"></p-dropdown><br>
+                
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <div [hidden]="companyListPgStatus" style="position: absolute; z-index: 10; ">
+                    <p-progressSpinner></p-progressSpinner>
+                </div>
+                <label>{{'COMPANY'|translate}}</label><span class="text-danger"> *</span><br>
+                <p-dropdown [options]="companyList" formControlName="cmnCompanyId" placeholder="Select a company"
+                    [showClear]="true" [filter]="true" filterBy="name" [showClear]="true" [style]="{'width':'100%'}"
+                    (onChange)="getEmployee()" placeholder="{{'SELECT'|translate}}" optionLabel="name" optionValue="id"></p-dropdown>
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <div [hidden]="employeeListPgStatus" style="position: absolute; z-index: 10; ">
+                    <p-progressSpinner></p-progressSpinner>
+                </div>
+                <label>{{'EMPLOYEE'|translate}}</label><span class="text-danger"> *</span><br>
+                <p-dropdown [options]="employeeList" formControlName="hrmEmployeeId" placeholder="Select an employee"
+                    [showClear]="true" [filter]="true" filterBy="name" [showClear]="true" [style]="{'width':'100%'}"
+                    placeholder="{{'SELECT'|translate}}" optionLabel="name" optionValue="id"></p-dropdown>
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'UserType'|translate}}</label><span class="text-danger"> *</span><br>
+                <p-dropdown [options]="roles" formControlName="secUserTypeId" placeholder="Select an roles"
+                    [showClear]="true" [filter]="true" filterBy="name" [showClear]="true" [style]="{'width':'100%'}"
+                    placeholder="{{'SELECT'|translate}}" optionLabel="name" optionValue="id"></p-dropdown>
+                
+            </div>
+           
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'USERID'|translate}}</label><span class="text-danger"> *</span><br>
+                <input type="text" class="p-2  w-full" placeholder="{{'USERID'|translate}}"
+                    formControlName="loginID" pInputText />
+            </div>
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'PASSWORD'|translate}}</label><span class="text-danger"> *</span><br>
+                <input type="password" class="p-2  w-full" placeholder="{{'PASSWORD'|translate}}"
+                    formControlName="password" pInputText />
+            </div>
+                        
+            
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3 ">
+                <div class="form-check sm:mt-2 md:mt-2 user_active_btn">
+                    <input class="form-check-input" type="checkbox" value="true" id="flexCheckDefault" [defaultChecked]="true"  checked
+                        formControlName="isActive">
+                    <label class="form-check-label" for="flexCheckDefault"> {{'ISACTIVE' | translate}} </label>
+                </div>
+            </div>
+        </div>
+        <div class="formgrid grid">
+            <div class="field col-12 sm:col-12 md:col-12 lg:col-12 xl:col-12">
+                <div class="frm progressbar" [hidden]="progressStatusSave" style="position: absolute; z-index: 10; ">
+                    <p-progressSpinner></p-progressSpinner>
+                   </div>
+                <div class="card-footer">
+                    <p-button (click)="save()" [disabled]="frm.invalid" *ngIf="formId==0||formId==1"
+                        styleClass="p-button-success p-button-sm" type="submit" icon="pi pi-check"
+                        label="{{'SAVE'|translate}}">
+                    </p-button>&nbsp;
+                    
+                    <p-button type="reset" *ngIf="formId==0||formId==1" styleClass="p-button-warning p-button-sm"
+                        icon="pi pi-refresh" (click)="reset()" label="{{'RESET'|translate}}"></p-button>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</p-panel>
+
+
+<div class="card py-2 mt-2">
+    <form [formGroup]="frmsrc">
+        <div class="formgrid grid">
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'TYPE'|translate}}</label><span class="text-danger"> *</span>
+                <p-dropdown [options]="companyTypeList" [style]="{'width':'100%'}" formControlName="cmnCompanyTypeId"
+                    [filter]="true" filterBy="shortName" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                   (onChange)="getCompanyByCompanyTypeTwo()" optionLabel="shortName" optionValue="id"></p-dropdown><br>
+                
+            </div>
+            
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'COMPANY'|translate}}</label><span class="text-danger"> *</span><br>
+                <p-dropdown [options]="companyList" formControlName="cmnCompanyId"
+                    placeholder="{{'COMPANY' | translate}}" [showClear]="true" [filter]="true" filterBy="name"
+                    [showClear]="true" [style]="{'width':'100%'}" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="name" optionValue="id"></p-dropdown>
+            </div>
+          
+          <div class="field col-12 sm:col-12 md:col-6 lg:col-6 xl:col-6">
+            <div class="mt-4">
+              <div class="" style="padding-top: 10px;">
+                <p-button (click)="search()" [disabled]="frm.invalid" styleClass="p-button-primary p-button-sm"
+                  type="submit" icon="pi pi-search" label="{{'Search' | translate}}"></p-button>&nbsp;
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+<p-table #dt [value]="userList" dataKey="id" [rowHover]="true" [rows]="15" [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[15,25,50,100]" [paginator]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+    [globalFilterFields]="['employeeName','employeeID','loginID','companyName']" styleClass="p-datatable-sm p-datatable-gridlines pt-3"
+    [tableStyle]="{'min-width': '50rem'}">
+
+    <ng-template pTemplate="caption">
+        <div class="flex">
+            <button pButton label="Clear" class="p-button-outlined p-button-sm" icon="pi pi-filter-slash"
+                (click)="clear(dt)"></button>
+            <span class="p-input-icon-left ml-auto float-right">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+                    placeholder="Search keyword" />
+            </span>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th class="vcenter text-center">{{'SLNo'|translate}}</th>
+            <th pSortableColumn="contactNumber" style="text-align: center">
+                <div class="vcenter text-center">
+                    {{"EMPLOYEEID" |translate}}
+                    <p-sortIcon field="contactNumber"></p-sortIcon>
+                    <p-columnFilter type="text" field="contactNumber" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+            </th>
+            <th pSortableColumn="loginID" style="text-align: center">
+                <div class="vcenter text-center">
+                    {{"USERID" |translate}}
+                    <p-sortIcon field="loginID"></p-sortIcon>
+                    <p-columnFilter type="text" field="loginID" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+            </th>
+            <!-- <th class="vcenter text-center">{{"PASSWORD" |translate}}</th> -->
+            <th class="vcenter text-center">{{"ROLENAME" |translate}}</th>
+            <th pSortableColumn="firstName" style="text-align: center">
+                <div class="vcenter text-center">
+                    {{"COMPANY" |translate}}
+                    <p-sortIcon field="firstName"></p-sortIcon>
+                    <p-columnFilter type="text" field="firstName" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+            </th>
+            <th class="vcenter text-center">{{"Action" |translate}}</th>
+        </tr>
+        <tr>
+            <div class="frm progressbar" [hidden]="progressStatus" style="position: absolute; z-index: 10; ">
+             <p-progressSpinner></p-progressSpinner>
+            </div>
+         </tr>
+    </ng-template>
+
+
+    <ng-template pTemplate="body" let-user let-rowIndex="rowIndex">
+        <tr class="p-selectable-row">
+            <td>{{rowIndex+1}}</td>
+            <td>{{user.employeeName}} {{user.employeeID}}</td>            
+            <td>{{user.loginID}}</td>
+            <td>{{user.secUserTypeId}}</td>  
+            <td>{{user.companyName}}</td>                     
+            <td class="vcenter text-center">
+                <p-button type="button" styleClass="p-button-success p-button-sm mr-2 px-2 py-1" icon="pi pi-pencil"
+                    (click)="edit(user)" data-toggle="tooltip" title="{{'EDIT' | translate}}"></p-button>
+            </td>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="9">No data found.</td>
+        </tr>
+    </ng-template>
+
+</p-table>

@@ -1,0 +1,556 @@
+<p-confirmDialog class="xl:w-15rem lg:w-15rem md:w-15rem sm:w-15rem" [baseZIndex]="10000"></p-confirmDialog>
+<p-panel>
+   
+    <ng-template pTemplate="header"> <span class="text-primary font-semibold text-xl ">{{'CLIENTCREATE' |
+                translate}}</span>
+                <div class="xl:col-10  lg:col-10 md:col-10 sm:col-6 col-6  float_right">
+                    <span style="cursor: pointer;" (click)="getbulkImport()">
+                        {{'BulkUpload' | translate}}
+                    </span>
+                </div>
+    </ng-template>
+    
+        <div class="m-5" [hidden]="bulkImport" >
+           
+            <div class="formgrid grid btn bg-primary">
+                <div class="col-2 xl:col-2 lg:col-2 md:col-2 sm:co-2 float_right">
+                    <span class="text-primary font-semibold text-xl ">{{'BulkUpload' |
+                        translate}}</span>
+                
+               </div>
+                <div class="col-10 xl:col-10 lg:col-10 md:col-10 sm:co-10 float_right">
+                    <a href="\assets\bulk\bulk-clients.xls" label="Sample Excel"
+                                        class="p-element p-ripple p-button-raised p-button-help p-button-text p-button p-component mr-4 text-white"><span
+                                            class="p-button-label font-weight-normal">Sample Excel &nbsp; <i _ngcontent-rur-c90=""
+                                                class="pi pi-download"></i></span><span class="p-ink"></span></a>
+                </div>
+            </div>
+           
+            <div class="formgrid grid m-0 pt-2">
+        
+                <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                    <label>{{'UPLOAD'|translate}}</label><span class="text-danger"> *</span><br>
+                    <input  type="file" id="filePath" name="filePath" (change)="importClients($event)">
+                </div>
+                <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4" [hidden]="hideButton">
+                    <p-button type="button" styleClass="p-button-primary p-button-sm px-2 py-2 mt-4"
+                        (click)="clientBulkUpload()" data-toggle="tooltip" label="{{'Import' | translate}}"
+                        title="{{'Import' | translate}}"></p-button>
+                </div>       
+            </div>
+        </div>
+
+    
+    <form [formGroup]="frm">
+        <input type="hidden" formControlName="id" value=0>
+        <div class="formgrid grid mb-0">
+            <!-- interchange -->
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'TYPE'|translate}}</label><span class="text-danger"> *</span>
+                <p-dropdown [options]="companyTypeList" [style]="{'width':'100%'}" formControlName="cmnCompanyTypeId"
+                    [filter]="true" filterBy="shortName" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    (onChange)="getUpperLevelCompany()" optionLabel="shortName" optionValue="id"></p-dropdown><br>
+                <span *ngIf="frm.controls['cmnCompanyTypeId'].invalid && frm.controls['cmnCompanyTypeId'].touched "
+                    class="text-danger">
+                    {{'TYPE'|translate}} {{'REQUIRED'|translate}}
+                </span>
+            </div>
+
+            <!-- new -->
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'PARENTS'|translate}}</label><span class="text-danger"> *</span>
+                <p-dropdown [options]="companies" [style]="{'width':'100%'}" formControlName="cmnCompanyId"
+                    [filter]="true" filterBy="name" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="name" optionValue="id"></p-dropdown><br>
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'NAME'|translate}}</label><span class="text-danger"> *</span><br>
+                <input type="text" class="p-2  w-full" formControlName="name"
+                    pInputText />
+                <span *ngIf="frm.controls['name'].invalid && frm.controls['name'].touched " class="text-danger">
+                    {{'NAME'|translate}} {{'REQUIRED'|translate}}
+                </span>
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'Prefix'|translate}}</label><span class="text-danger"> *</span>
+                <input type="text" class="p-2  w-full"
+                    formControlName="prefix" pInputText />
+                    <span *ngIf="frm.controls['prefix'].invalid && frm.controls['prefix'].touched " class="text-danger">
+                        {{'Prefix'|translate}} {{'REQUIRED'|translate}}
+                    </span>
+            </div>
+            
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'CONTACTPERSON'|translate}}</label><span class="text-danger"> *</span>
+                <input type="text" class="p-2 w-full"
+                    formControlName="contactPerson" pInputText />
+                <span *ngIf="frm.controls['contactPerson'].invalid && frm.controls['contactPerson'].touched "
+                    class="text-danger">
+                    {{'CONTACTPERSON'|translate}} {{'REQUIRED'|translate}}
+                </span>
+            </div>
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'CONTACTNO'|translate}}</label><span class="text-danger"> *</span>
+                <input type="text" class="p-2 w-full"
+                    formControlName="contactNo" phoneChars />
+
+                <span *ngIf="frm.controls['contactNo'].invalid && frm.controls['contactNo'].touched "
+                    class="text-danger">
+                    {{'CONTACTNO'|translate}} {{'REQUIRED'|translate}}
+                </span>
+            </div>
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'ALTERNATIVEPHONE'|translate}}</label>
+                <input type="text" class="p-2 w-full"
+                    formControlName="alternatePhone" phoneChars />
+            </div>
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'EMAIL'|translate}}</label><span class="text-danger"> *</span>
+                <input type="text" formControlName="email" class="form-control" emailChars />
+                        
+                <span *ngIf="frm.controls['email'].invalid && frm.controls['email'].touched " class="text-danger">
+                    {{'EMAIL'|translate}} {{'REQUIRED'|translate}}
+                </span> 
+            </div>
+
+            <!-- <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'LoginId' | translate}} </label>               
+                <input type="text" class="p-2  w-full" formControlName="loginId" webChars pInputText />
+            </div>
+            
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'Password' | translate}} </label>         
+                <input type="password" class="p-2  w-full" formControlName="password" webChars pInputText />
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'Retype' | translate}} </label>    
+                <input type="password" class="p-2  w-full" formControlName="confirmPassword"  webChars pInputText />
+                
+            </div> -->
+            
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'WEB'|translate}}</label>
+                <input type="text" class="p-2  w-full" formControlName="web" webChars pInputText />
+            </div>
+
+            <!-- <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'TYPE'|translate}}</label><span class="text-danger"> *</span>
+                <p-dropdown [options]="companyTypeList" [style]="{'width':'100%'}" formControlName="cmnCompanyTypeId"
+                    [filter]="true" filterBy="shortName" [showClear]="true"
+                    optionLabel="shortName" optionValue="id"></p-dropdown><br>
+                <span *ngIf="frm.controls['cmnCompanyTypeId'].invalid && frm.controls['cmnCompanyTypeId'].touched "
+                    class="text-danger">
+                    {{'TYPE'|translate}} {{'REQUIRED'|translate}}
+                </span>
+            </div> -->
+            
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'COUNTRY'|translate}}</label>
+                <p-dropdown [options]="countryList" [style]="{'width':'100%'}" formControlName="cmnCountryId"
+                    [filter]="true" filterBy="name" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="name" optionValue="id"></p-dropdown><br>
+            </div>
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'DIVISION'|translate}}</label><span class="text-danger"> *</span><br>
+                <p-dropdown [options]="divisionList" [style]="{'width':'100%'}" formControlName="cmnDivisionId"
+                    [filter]="true" filterBy="name" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="nameInBangla" optionValue="id" (onChange)="getDistrictByDivisionId()"></p-dropdown><br>
+                <span *ngIf="frm.controls['cmnDivisionId'].invalid && frm.controls['cmnDivisionId'].touched "
+                    class="text-danger">
+                    {{'DIVISION'|translate}} {{'REQUIRED'|translate}}
+                </span>
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'DISTRICT'|translate}}</label><span class="text-danger"> *</span><br>
+                <p-dropdown [options]="districtList" [style]="{'width':'100%'}" formControlName="cmnDistrictId"
+                 [filter]="true" filterBy="text" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="text" optionValue="value" (onChange)="getUpazillaByDistrictId()"></p-dropdown><br>
+                <span *ngIf="frm.controls['cmnDistrictId'].invalid && frm.controls['cmnDistrictId'].touched "
+                    class="text-danger">
+                    {{'DISTRICT'|translate}} {{'REQUIRED'|translate}}
+                </span>
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'UPAZILLA'|translate}}</label><span class="text-danger"> *</span><br>
+                <p-dropdown [options]="thanaList" [style]="{'width':'100%'}" formControlName="cmnUpazillaId"
+                 [filter]="true" filterBy="text" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="text" optionValue="value" (onChange)="getUnionByUpazillaId()"></p-dropdown><br>
+                <span *ngIf="frm.controls['cmnUpazillaId'].invalid && frm.controls['cmnUpazillaId'].touched "
+                    class="text-danger">
+                    {{'UPAZILLA'|translate}} {{'REQUIRED'|translate}}
+                </span>
+            </div>
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'UNION'|translate}}</label>
+                <p-dropdown [options]="unionList" [style]="{'width':'100%'}" formControlName="cmnUnionId"
+                 [filter]="true" filterBy="text" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="text" optionValue="value"></p-dropdown><br>
+            </div>
+           
+            <div class="field col-12 sm:col-6 md:col-6 lg:col-6 xl:col-6">
+                <label>{{'ADDRESS'|translate}}</label><span class="text-danger"> *</span>
+                <input type="text" class="p-2 w-full" formControlName="address"
+                    pInputText />
+                <!-- <textarea type="text" class="p-2 w-full h-5rem" formControlName="address"
+                    pInputTextarea> </textarea> -->
+                <span *ngIf="frm.controls['address'].invalid && frm.controls['address'].touched " class="text-danger">
+                    {{'ADDRESS'|translate}} {{'REQUIRED'|translate}}
+                </span>
+            </div>
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'ZIP'|translate}}</label>
+                <input type="text" class="p-2 w-full" formControlName="zip"
+                    pInputText />
+            </div>
+            
+            <!-- <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'UserType'|translate}}</label>
+                <p-dropdown [options]="secUserTypeList" [style]="{'width':'100%'}" formControlName="secUserTypeId"
+                 [filter]="true" filterBy="text" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="name" optionValue="id"></p-dropdown><br>
+            </div> -->
+               <!-- Asad Added -->
+               <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'LOGO' | translate}}</label>
+                
+                <input hidden id="attachedSingleFile" (change)="onFileChange()" #fileInput type="file">
+                <div style="width: 140px;">
+                <img [src]="fileSrc || '../../../assets/img/default-user.jpg'" alt="Please click to upload file"
+                    (click)="clickOnBtnFile()" alt="image" class="msr-3 h-25 w-25"  width="50%" >
+                </div>
+            </div>
+
+            <div class="form-check col-12 sm:col-6 md:col-2 lg:col-2 xl:col-2 xl:mt-5 lg:mt-5 md:mt-5 sm:mt-5 m-5">
+                <input class="form-check-input" type="checkbox" value="true" id="flexCheckDefault" [defaultChecked]="true"
+                    formControlName="isActive">
+                <label class="form-check-label" for="flexCheckDefault"> {{'ISACTIVE' | translate}} </label>
+            </div>
+
+
+         
+        </div>
+        <h5 >{{'USER' | translate}}</h5>
+        <hr style=" border-top: 1px solid rgb(0, 0, 0);" >
+        <div class="formgrid grid" >
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3" *ngIf="this.frm.controls['id'].value == 0">
+                <label>{{'LoginId' | translate}} </label>               
+                <input type="text" class="p-2  w-full" formControlName="loginId" webChars pInputText />
+            </div>
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3" *ngIf="this.frm.controls['id'].value > 0">
+                <label>{{'LoginId' | translate}} </label>               
+                <input type="text" class="p-2  w-full" formControlName="loginId" readonly webChars pInputText />
+            </div>
+            
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'Password' | translate}} </label> 
+                <div class="formgrid grid" style="position: absolute;">
+                    <div class="field col-12 sm:col-12 md:col-12 lg:col-12 xl:col-12">
+                        <input type="{{isHidePassword}}" class="p-2  w-full" formControlName="password" webChars pInputText />
+                    </div>
+                    <div class="field col-1 sm:col-1 md:col-1 lg:col-1 xl:col-1" style="position: absolute; right: 0; margin-top: 10px;">
+                        <i class="pi pi-eye" style="font-size:  1.5rem ;" *ngIf="this.isHidePassword == 'password' " (click)="getIsHidePassword()"  ></i>
+                        <i class="pi pi-eye-slash" style="font-size:  1.5rem ;" *ngIf="this.isHidePassword == 'text' " (click)="getIsHidePassword()" ></i>
+                    </div>     
+                </div>
+                   
+            </div>
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'Retype' | translate}} </label> 
+                <div class="formgrid grid" style="position: absolute;">
+                    <div class="field col-12 sm:col-12 md:col-12 lg:col-12 xl:col-12">
+                        <input type="{{isHideComPassword}}" class="p-2  w-full" formControlName="confirmPassword"  webChars pInputText />
+                    </div>
+                    <div class="field col-1 sm:col-1 md:col-1 lg:col-1 xl:col-1" style="position: absolute; right: 0; margin-top: 10px;">
+                        <i class="pi pi-eye" style="font-size:  1.5rem ;" *ngIf="this.isHideComPassword == 'password' " (click)="getIsHideComPassword()"  ></i>
+                        <i class="pi pi-eye-slash" style="font-size:  1.5rem ;" *ngIf="this.isHideComPassword == 'text' " (click)="getIsHideComPassword()" ></i>
+                    </div>
+                </div>   
+            </div>
+        </div>
+        <hr style=" border-top: 1px solid rgb(0, 0, 0);"  >
+        <h5>{{'UPLOADFILES' | translate}}</h5>
+        <div class="formgrid grid order_section" formGroupName="frmFileAttachment">
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'ATTACHMENTTYPE'|translate}}</label><br>
+                <p-dropdown [style]="{'height':'100%'}" [options]="attachmentTypes" [style]="{'width':'100%'}" formControlName="hrmFileCategoryId"
+                        [filter]="true" filterBy="name" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                        optionLabel="name" optionValue="id"></p-dropdown><br>
+            </div>
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'IDENTIFICATIONNUMBER'|translate}}</label><br>
+                <input type="text" class="p-2 w-full" formControlName="identificationNo" pInputText /><br>
+            </div>
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'FILE'|translate}}</label><br>
+                <input type="file" class="p-2 w-full" style="border: none;" #doc formControlName="uploadFile" pInputText /><br>
+            </div>
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                
+                <p-button type="button" styleClass="p-button-primary p-button-sm px-2 py-2 mt-4" icon="pi pi-plus"
+                    (click)="addRow()" data-toggle="tooltip" label="{{'ADD' | translate}}"
+                    title="{{'ADD' | translate}}"></p-button>
+            </div>
+        </div>
+        <div class="formgrid grid m-0 p-0 pt-2">
+            <div class="field col-12 xl:col-12 lg:col-12 md:col-12 sm:co-12 p-0">
+                <p-table [value]="attachmentList" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th class="vcenter text-center">{{'ATTACHMENTTYPE' | translate}}</th>
+                            <th class="vcenter text-center">{{'IDENTIFICATIONNUMBER' | translate}}</th>
+                            <th class="vcenter text-center">{{'FILE' | translate}}</th>
+                            <th class="vcenter text-center">{{'ACTION' | translate}}</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-index="rowIndex">
+                        <tr>
+                            <td>{{ rowData.fileCategory }}</td>
+                            <td>{{ rowData.identificationNo }}</td>
+                            <td style="cursor: pointer; color: blue; text-decoration: underline; text-align: center; padding: 0;">
+                                <iframe (onclick)="util.viewDocument(rowData.virtualPath)" width="50%" height="50%" [src]="imageSrc"></iframe>
+                                <span (click)="showImage(rowData)">View</span>
+                            </td>
+
+                            <td class="vcenter text-center">
+                                <p-button class="p-button-sm px-2 py-2" (click)="removeRow(index,rowData)"><i
+                                        class="pi pi-minus" style="font-size: 1.5rem;color: red"></i></p-button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+
+
+
+    </form>
+    <ng-template pTemplate="footer">
+        <div class="formgrid grid">
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <div class="frm progressbar" [hidden]="progressStatusSave" style="position: absolute; z-index: 10; ">
+                    <p-progressSpinner></p-progressSpinner>
+                   </div>
+                <div class="card-footer">
+                    <div class="flex justify-center">
+                        <p-button (click)="save()" [disabled]="frm.invalid" styleClass="p-button-success p-button-sm"
+                            type="submit" icon="pi pi-check" label="{{'SAVE'|translate}}"></p-button>&nbsp;
+                        <p-button type="reset" styleClass="p-button-warning p-button-sm mx-1" icon="pi pi-refresh"
+                            (click)="reset()" label="{{'RESET'|translate}}"></p-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </ng-template>
+</p-panel>
+<br>
+
+<p-dialog header="Header" [(visible)]="displayModal" [modal]="true" [style]="{width: '70vw'}" [draggable]="false"
+    [resizable]="false">
+    <ng-template pTemplate="header">
+        <h5>{{'Client' | translate}} {{'DETAILS' | translate}}</h5>
+    </ng-template>
+    <div class="modal-body">
+        <div class="formgrid grid">
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 ">
+                <label>{{'NAME' | translate}} : </label>
+                <!-- <p>{{viewInfo.name}}</p> -->
+                <input type="text" class="p-2  w-full " pInputText readonly [(ngModel)]="viewInfo.name">
+            </div>
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'SHORTNAME' | translate}} : </label>
+                <!-- <p>{{viewInfo.shortName}}</p> -->
+                <input type="text" class="p-2  w-full" pInputText readonly [(ngModel)]="viewInfo.shortName">
+            </div>
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'CONTACTPERSON' | translate}} : </label>
+                <!-- <p>{{viewInfo.contactPerson}}</p> -->
+                <input type="text" class="p-2  w-full" pInputText readonly [(ngModel)]="viewInfo.contactPerson">
+            </div>
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'CONTACTNO' | translate}} : </label>
+                <!-- <p>{{viewInfo.contactNo}}</p> -->
+                <input type="text" class="p-2  w-full" pInputText readonly [(ngModel)]="viewInfo.contactNo">
+            </div>
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'ALTERNATIVEPHONE' | translate}} : </label>
+                <!-- <p>{{viewInfo.alternatePhone}}</p> -->
+                <input type="text" class="p-2  w-full" pInputText readonly [(ngModel)]="viewInfo.alternatePhone">
+            </div>
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'EMAIL' | translate}} : </label>
+                <!-- <p>{{viewInfo.email}}</p> -->
+                <input type="text" class="p-2  w-full" pInputText readonly [(ngModel)]="viewInfo.email">
+            </div>
+
+            
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'FAX' | translate}} : </label>
+                <!-- <p>{{viewInfo.fax}}</p> -->
+                <input type="text" class="p-2  w-full" pInputText readonly [(ngModel)]="viewInfo.fax">
+            </div>
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'WEB' | translate}} : </label>
+                <!-- <p>{{viewInfo.web}}</p> -->
+                <input type="text" class="p-2  w-full" pInputText readonly [(ngModel)]="viewInfo.web">
+            </div>
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'COMPANYTYPE' | translate}} : </label>
+                <!-- <p>{{viewInfo.cmnCompanyTypeId}}</p> -->
+                <input type="text" class="p-2  w-full" pInputText readonly [(ngModel)]="viewInfo.companyType">
+            </div>
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'COUNTRY' | translate}} : </label>
+                <!-- <p>{{viewInfo.cmnCountryId}}</p> -->
+                <input type="text" class="p-2  w-full" pInputText readonly [(ngModel)]="viewInfo.country">
+            </div>
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'DIVISION' | translate}} : </label>
+                <!-- <p>{{viewInfo.cmnDivisionId}}</p> -->
+                <input type="text" class="p-2  w-full" pInputText readonly [(ngModel)]="viewInfo.division">
+            </div>
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'DISTRICT' | translate}} : </label>
+                <!-- <p>{{viewInfo.cmnDistrictId}}</p> -->
+                <input type="text" class="p-2  w-full" pInputText readonly [(ngModel)]="viewInfo.district">
+            </div>
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'UPAZILLA' | translate}} : </label>
+                <!-- <p>{{viewInfo.cmnUpazillaId}}</p> -->
+                <input type="text" class="p-2  w-full" pInputText readonly [(ngModel)]="viewInfo.upazilla">
+            </div>
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'UNION' | translate}} : </label>
+                <!-- <p>{{viewInfo.cmnUnionId}}</p> -->
+                <input type="text" class="p-2  w-full" pInputText readonly [(ngModel)]="viewInfo.union">
+            </div>
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'ADDRESS' | translate}} : </label>
+                <!-- <p>{{viewInfo.address}}</p> -->
+                <input type="text" class="p-2  w-full" pInputText readonly [(ngModel)]="viewInfo.address">
+            </div>
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'ZIP' | translate}} : </label>
+                <!-- <p>{{viewInfo.zip}}</p> -->
+                <input type="text" class="p-2  w-full" pInputText readonly [(ngModel)]="viewInfo.zip">
+            </div>
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-times" (click)="displayModal=false" label="{{'CLOSE' | translate}}"
+            styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>
+<div class="card">
+    <form [formGroup]="frmSerch">
+        <div class="formgrid grid mb-4">
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+                <label>{{'TYPE'|translate}}</label><span class="text-danger"> *</span>
+                <p-dropdown [options]="companyTypeList" [style]="{'width':'100%'}" formControlName="cmnCompanyTypeId"
+                    [filter]="true" filterBy="shortName" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                     optionLabel="shortName" optionValue="id"></p-dropdown><br>
+                <span *ngIf="frm.controls['cmnCompanyTypeId'].invalid && frm.controls['cmnCompanyTypeId'].touched "
+                    class="text-danger">
+                    {{'TYPE'|translate}} {{'REQUIRED'|translate}}
+                </span>
+            </div>
+            <div class="field col-12 sm:col-6 md:col-3 lg:col-3 xl:col-3">
+              <p-button (click)="getCompany()" styleClass="p-button-primary p-button-sm mt-5"
+                            type="submit" icon="pi pi-search" label="{{'Search' | translate}}"></p-button>&nbsp;
+            </div>
+        </div>
+    </form>
+</div>
+
+<p-table #dt [value]="companyList" dataKey="id" [rowHover]="true" [rows]="20" [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[20,30,50,100]" [paginator]="false"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+    [globalFilterFields]="['nameWithType','prefix', 'code','contactNo','email']" styleClass="p-datatable-sm p-datatable-gridlines pt-3"
+    [tableStyle]="{'min-width': '73rem'}">
+
+    <ng-template pTemplate="caption">
+
+        <div class="flexBox">
+            <button pButton label="Clear" class="p-button-outlined p-button-sm" icon="pi pi-filter-slash"
+                (click)="clear(dt)"></button>
+                <div class="ml-3">
+                  <button pButton type="button" label="Export to Excel" (click)="exportToExcel()" class="export-button"></button>
+                </div>
+            <span class="p-input-icon-left ml-auto float-right">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+                    placeholder="Search keyword" />
+            </span>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th class="vcenter text-center" style="width: 2%">{{'SL#' | translate}}</th>
+            <th pSortableColumn="name" style="text-align: center">
+                <div class="vcenter text-center">
+                    {{'NAME' | translate}}
+                    <p-sortIcon field="name"></p-sortIcon>
+                    <p-columnFilter type="text" field="name" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+            </th>
+            <th pSortableColumn="prefix" style="text-align: center;">
+                <div class="vcenter text-center">
+                    {{'Prefix' | translate}}
+                    <p-sortIcon field="prefix"> </p-sortIcon>
+                    <p-columnFilter type="text" field="prefix" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+            </th>
+            <th pSortableColumn="code" style="text-align: center; ">
+                <div class="vcenter text-center">
+                    {{'CODE' | translate}}
+                    <p-sortIcon field="code"></p-sortIcon>
+                    <p-columnFilter type="text" field="code" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+            </th>
+            <th class="vcenter text-center">{{'CONTACTPERSON' | translate}}</th>
+            <th class="vcenter text-center">{{'CONTACTNO' | translate}}</th>
+            <th class="vcenter text-center">{{'EMAIL' | translate}}</th>
+            <th class="vcenter text-center">{{'ADDRESS' | translate}}</th>
+            <th class="vcenter text-center" style="width: 80px;">{{'ACTION' | translate}}</th>
+        </tr>
+        <tr>
+            <div class="frm progressbar" [hidden]="progressStatus" style="position: absolute; z-index: 10; ">
+             <p-progressSpinner></p-progressSpinner>
+            </div>
+         </tr>
+         
+    </ng-template>
+
+    <ng-template pTemplate="body" let-r | let-i="rowIndex">
+        <tr class="p-selectable-row">
+            <td>{{i+1}}</td>
+            <td>{{r.name}}</td>
+            <td style="width: 80px;">{{r.prefix}}</td>
+            <td style="width: 80px;">{{r.code}}</td>
+            <td>{{r.contactPerson}}</td>
+            <td>{{r.contactNo}}</td>
+            <td>{{r.email}}</td>
+            <td>{{r.address}}</td>
+            <td  style="width: 80px;">
+                <p-button type="button" styleClass="p-button-success p-button-sm mr-2 px-2 py-1" icon="pi pi-pencil"
+                    (click)="edit(r)" data-toggle="tooltip" title="{{'EDIT' | translate}}"></p-button>&nbsp;
+                <p-button type="button" styleClass="p-button-primary p-button-sm px-2 py-1" icon="pi pi-eye"
+                    (click)="showModalDialog(r)" data-toggle="tooltip" title="{{'VIEW' | translate}}"></p-button>
+            </td>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="9">No data found.</td>
+        </tr>
+    </ng-template>
+
+</p-table>
