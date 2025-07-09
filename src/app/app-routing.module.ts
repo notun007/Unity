@@ -50,6 +50,7 @@ const routes: Routes = [
       { path: 'saving', loadChildren: () => import('./saving/saving.module').then(m => m.SavingModule) },
       { path: 'loan', loadChildren: () => import('./loan/loan.module').then(m => m.LoanModule) },
       { path: 'land', loadChildren: () => import('./land/land.module').then(m => m.LandModule) },
+      { path: 'welfare', loadChildren: () => import('./welfare/welfare.module').then(m => m.WelfareModule) },
 
     ]
   },
