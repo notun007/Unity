@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MembershipRoutingModule } from './membership-routing.module';
+import { MemberRoutingModule } from './member-routing.module';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -47,8 +47,8 @@ import { TabViewModule } from 'primeng/tabview';
     InputTextModule, InputTextareaModule, MultiSelectModule, CascadeSelectModule,
     InputNumberModule, InputMaskModule, DropdownModule, AutoCompleteModule, CalendarModule, ChipsModule, TableModule, ConfirmDialogModule,
     MessagesModule, DialogModule,
-    MembershipRoutingModule, PanelModule,ProgressSpinnerModule,TabViewModule
+    MemberRoutingModule, PanelModule,ProgressSpinnerModule,TabViewModule
   ]
 })
-export class MembershipModule { }
+export class MemberModule { }
 

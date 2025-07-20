@@ -19,7 +19,7 @@ import { ScheduledTaskService } from './services/scheduled-task.service';
 //New
 export class AppComponent implements OnInit, OnDestroy {
 
-  title = 'tfsmsclient';
+  title = 'Unity';
   idleSubscription: Subscription | undefined; //New
  
   // New
