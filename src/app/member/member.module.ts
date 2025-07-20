@@ -26,17 +26,17 @@ import { PanelModule } from 'primeng/panel';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ReportViewerModule } from '../reportviewer/reportviewer.module';
 
+import { TabViewModule } from 'primeng/tabview';
+import { MembershipComponent } from './membership/membership.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { UnregistrationComponent } from './unregistration/unregistration.component';
-import { TabViewModule } from 'primeng/tabview';
 
 
 @NgModule({
   declarations: [
     RegistrationComponent,
-    UnregistrationComponent
-    
-
+    UnregistrationComponent,
+    MembershipComponent
   ],
   imports: [
     ReportViewerModule,

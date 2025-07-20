@@ -47,9 +47,6 @@ const routes: Routes = [
       { path: 'pgw', loadChildren: () => import('./payment-gateway/payment-gateway.module').then(m => m.PaymentGatewayModule) },
       { path: 'complain', loadChildren: () => import('./complain/complain.module').then(m => m.ComplainModule) },
       { path: 'member', loadChildren: () => import('./member/member.module').then(m => m.MemberModule) },
-
-       { path: 'member', loadChildren: () => import('./member/member.module').then(m => m.MemberModule) },
-
       { path: 'saving', loadChildren: () => import('./saving/saving.module').then(m => m.SavingModule) },
       { path: 'loan', loadChildren: () => import('./loan/loan.module').then(m => m.LoanModule) },
       { path: 'land', loadChildren: () => import('./land/land.module').then(m => m.LandModule) },

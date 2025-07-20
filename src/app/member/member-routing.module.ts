@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 // import { PaymentMethodComponent } from './payment-method/payment-method.component';
 // import { SelfBalanceRechargeComponent } from './self-balance-recharge/self-balance-recharge.component';
+
+import { MembershipComponent } from './membership/membership.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { UnregistrationComponent } from './unregistration/unregistration.component';
 
