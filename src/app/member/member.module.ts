@@ -27,16 +27,26 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ReportViewerModule } from '../reportviewer/reportviewer.module';
 
 import { TabViewModule } from 'primeng/tabview';
+
 import { MembershipComponent } from './membership/membership.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { UnregistrationComponent } from './unregistration/unregistration.component';
 
+import { AccordionModule } from 'primeng/accordion'; // <-- Import here
+import { ConfirmationService } from 'primeng/api';
+import { BrowserModule } from '@angular/platform-browser';
+// import { ButtonModule } from 'primeng/button';
+import { DirectiveModule } from '../directives/directive.module';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { PaginatorModule } from 'primeng/paginator';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @NgModule({
   declarations: [
     RegistrationComponent,
     UnregistrationComponent,
     MembershipComponent
+    
   ],
   imports: [
     ReportViewerModule,
@@ -47,8 +57,11 @@ import { UnregistrationComponent } from './unregistration/unregistration.compone
     InputTextModule, InputTextareaModule, MultiSelectModule, CascadeSelectModule,
     InputNumberModule, InputMaskModule, DropdownModule, AutoCompleteModule, CalendarModule, ChipsModule, TableModule, ConfirmDialogModule,
     MessagesModule, DialogModule,
-    MemberRoutingModule, PanelModule,ProgressSpinnerModule,TabViewModule
-  ]
+    MemberRoutingModule, PanelModule,ProgressSpinnerModule,TabViewModule,
+    // ButtonModule,
+    PanelModule, DirectiveModule,SelectButtonModule,RadioButtonModule, AccordionModule,PaginatorModule
+  ],
+  providers: [ConfirmationService]
 })
 export class MemberModule { }
 

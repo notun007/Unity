@@ -10,8 +10,11 @@ import { UnregistrationComponent } from './unregistration/unregistration.compone
 
 const routes: Routes = [
 
+   { path: 'membership', component: MembershipComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'unregister', component: UnregistrationComponent }
+ 
+  
   
 ];
 
