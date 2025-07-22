@@ -112,7 +112,7 @@ activeTabs: boolean[] = [false, false];
       nomineeAddress: new FormControl(""),
       nomineePhoneNumber: new FormControl(""),
       introducedByMemberId: new FormControl(null),
-      nid: new FormControl(""),
+      nationalIdentificationNumber: new FormControl(""),
       genderId: new FormControl(null, Validators.required),
       maritalStatusId: new FormControl(null, Validators.required),
       membershipTypeId: new FormControl(null, Validators.required),
