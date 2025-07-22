@@ -167,8 +167,6 @@ activeTabs: boolean[] = [false, false];
 
   }
 
- 
-
   clear(table: Table) {
     table.clear();
   }
