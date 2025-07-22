@@ -156,24 +156,24 @@
             <input type="text" class="p-2  w-full" placeholder="" formControlName="villageName" pInputText />
             </div>
                  
-                    <div class="field col-12 md:col-12 lg:col-12 xl:col-12">
-                        <div class="card-footer">
-                            <p-button styleClass="p-button-success p-button-sm mr-2" type="submit" icon="pi pi-check"
-                                label="{{'SaveMembership' | translate}}">
-                            </p-button>
-                        </div>
-                    </div>
+            <div class="field col-12 md:col-12 lg:col-12 xl:col-12">
+                <div class="card-footer">
+                    <p-button styleClass="p-button-success p-button-sm mr-2" type="submit" icon="pi pi-check"
+                                label="{{'Save' | translate}}">
+                    </p-button>
                 </div>
-        </form>
-
+            </div>
         </div>
+    </form>
+    </div>
   </p-accordionTab>
 
 
   <p-accordionTab header="Contact Information">
     <form [formGroup]="frm">
         <div class="formgrid grid">
-     <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
                 <label>{{'PhoneNumber'|translate}}</label><span class="text-danger"> *</span><br>
                 <input type="text" class="p-2  w-full" placeholder="" formControlName="phoneNumber" pInputText />
                 
@@ -183,16 +183,25 @@
                 <label>{{'AlternatePhoneNumber'|translate}}</label><span class="text-danger"> </span><br>
             <input type="text" class="p-2  w-full" placeholder="" formControlName="alternatePhoneNumber" pInputText />
             </div>
-
             
             <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
                 <label>{{'EmailAddress'|translate}}</label><span class="text-danger"> </span><br>
             <input type="text" class="p-2  w-full" placeholder="" formControlName="emailAddress" pInputText />
             </div>
+
             <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
                 <label>{{'Address'|translate}}</label><span class="text-danger"> </span><br>
             <input type="text" class="p-2  w-full" placeholder="" formControlName="address" pInputText />
             </div>
+
+            <div class="field col-12 md:col-12 lg:col-12 xl:col-12">
+                <div class="card-footer">
+                    <p-button styleClass="p-button-success p-button-sm mr-2" type="submit" icon="pi pi-check"
+                                label="{{'Save' | translate}}">
+                    </p-button>
+                </div>
+            </div>
+
       </div>
 </form>
         
@@ -202,6 +211,7 @@
   <p-accordionTab header="Membership Details">
         <form [formGroup]="frm">
         <div class="formgrid grid">
+
             <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
                 <label>{{'MembershipTypeId'|translate}}</label><span class="text-danger"> *</span>
                 <p-dropdown [options]="membershipTypeList" [style]="{'width':'100%'}" formControlName="membershipTypeId"
@@ -232,6 +242,14 @@
                     optionLabel="name" optionValue="id"></p-dropdown><br>
                 
             </div>
+
+            <div class="field col-12 md:col-12 lg:col-12 xl:col-12">
+                <div class="card-footer">
+                    <p-button styleClass="p-button-success p-button-sm mr-2" type="submit" icon="pi pi-check"
+                                label="{{'Save' | translate}}">
+                    </p-button>
+                </div>
+            </div>
     </div>
     </form>
   </p-accordionTab>
@@ -240,6 +258,7 @@
    <p-accordionTab header=" Education & Job Info">
         <form [formGroup]="frm">
             <div class="formgrid grid">
+
             <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
                 <label>{{'EducationLevelId'|translate}}</label><span class="text-danger"> *</span>
                 <p-dropdown [options]="educationLevelList" [style]="{'width':'100%'}" formControlName="educationLevelId"
@@ -272,6 +291,14 @@
                 
             </div>
 
+            <div class="field col-12 md:col-12 lg:col-12 xl:col-12">
+                <div class="card-footer">
+                    <p-button styleClass="p-button-success p-button-sm mr-2" type="submit" icon="pi pi-check"
+                                label="{{'Save' | translate}}">
+                    </p-button>
+                </div>
+            </div>
+
       </div>
 </form>       
   </p-accordionTab>
@@ -280,6 +307,7 @@
   <p-accordionTab header=" Service Location">
     <form [formGroup]="frm">
         <div class="formgrid grid">
+
              <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
                 <label>{{'ServiceLocationCountryId'|translate}}</label><span class="text-danger"> </span>
                 <p-dropdown [options]="countryList" [style]="{'width':'100%'}" formControlName="serviceLocationCountryId"
@@ -312,6 +340,14 @@
                 
             </div>
 
+            <div class="field col-12 md:col-12 lg:col-12 xl:col-12">
+                <div class="card-footer">
+                    <p-button styleClass="p-button-success p-button-sm mr-2" type="submit" icon="pi pi-check"
+                                label="{{'Save' | translate}}">
+                    </p-button>
+                </div>
+            </div>
+
          </div>
 </form>                           
   </p-accordionTab>
@@ -320,7 +356,8 @@
    <p-accordionTab header="Nominee Information">
     <form [formGroup]="frm">
         <div class="formgrid grid">
-        <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
                 <label>{{'NomineeName'|translate}}</label><span class="text-danger"> </span><br>
             <input type="text" class="p-2  w-full" placeholder="" formControlName="nomineeName" pInputText />
             </div>
@@ -333,7 +370,15 @@
             <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
                 <label>{{'NomineePhoneNumber'|translate}}</label><span class="text-danger"> </span><br>
             <input type="text" class="p-2  w-full" placeholder="" formControlName="nomineePhoneNumber" pInputText />
-            </div>       
+            </div>      
+            
+            <div class="field col-12 md:col-12 lg:col-12 xl:col-12">
+                <div class="card-footer">
+                    <p-button styleClass="p-button-success p-button-sm mr-2" type="submit" icon="pi pi-check"
+                                label="{{'Save' | translate}}">
+                    </p-button>
+                </div>
+            </div>
     </div>
     </form>
   </p-accordionTab>
@@ -341,13 +386,22 @@
    <p-accordionTab header="Banking Info">
     <form [formGroup]="frm">
         <div class="formgrid grid">
+
         <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
                 <label>{{'MobileBankingId'|translate}}</label><span class="text-danger"> *</span>
                 <p-dropdown [options]="mobileBankingList" [style]="{'width':'100%'}" formControlName="mobileBankingId"
                     [filter]="true" filterBy="name" [showClear]="true" placeholder="{{'SELECT'|translate}}"
                     optionLabel="name" optionValue="id"></p-dropdown><br>
-                
         </div>   
+
+        <div class="field col-12 md:col-12 lg:col-12 xl:col-12">
+                <div class="card-footer">
+                    <p-button styleClass="p-button-success p-button-sm mr-2" type="submit" icon="pi pi-check"
+                                label="{{'Save' | translate}}">
+                    </p-button>
+                </div>
+        </div>
+
     </div>
     </form>
   </p-accordionTab>
