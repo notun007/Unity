@@ -1,6 +1,6 @@
 import { Location, DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmationService } from 'primeng/api';
@@ -24,21 +24,27 @@ activeTabs: boolean[] = [false, false];
 
   curloc: string = '';
   
-  subscriberList: any;
+  membershipList: any;
   genderList: any;
+  maritalStatusList: any;
+  membershipTypeList: any;
+  religionList: any;
+  mobileBankingList: any;
   countryList: any;
   divisionList: any;
   districtList: any;
-  thanaList: any;
+  upazilaList: any;
   unionList: any;
-  
-  subsType: any;
+  educationLevelList: any;
+  designationList: any;
+  serviceDepartmentList: any;
+  serviceDivisionList: any;
+
+
   apiurl: any;
   frm!: FormGroup;
-
-  frmDeviceAssign!: FormGroup;
-  frmSpecifyPackage!: FormGroup;
-
+  frmSearch!: FormGroup;
+  
   progressStatus: any = false;
 
   
@@ -50,7 +56,6 @@ activeTabs: boolean[] = [false, false];
 
   _auth: any
   customernumber: any;
-  frmsrc!: FormGroup;
   visible: boolean = true;
   
   isAbleToassign: boolean = true;
@@ -75,6 +80,72 @@ activeTabs: boolean[] = [false, false];
     this.curloc = location.href;
     this._auth = auth;
     //this.getAppSetting();
+  }
+
+  ngOnInit(): void {
+
+    var currUrl = this.route.snapshot.queryParamMap.get('urlNam');
+
+    this.membershipForm();
+    this.searchForm();
+
+}
+
+  membershipForm() {
+      this.frm = this.fb.group({
+      id: new FormControl(),
+      name: new FormControl("", Validators.required),
+      fatherName: new FormControl("", Validators.required),
+      motherName: new FormControl("", Validators.required),
+      spouseNameName: new FormControl(""),
+      membershipNumber: new FormControl("", Validators.required),
+      dateOfBirth: new FormControl(null),
+      address: new FormControl(""),
+      phoneNumber: new FormControl(""),
+      alternatePhoneNumber: new FormControl(""),
+      emailAddress: new FormControl("", Validators.email),
+      shareCapital: new FormControl(0, Validators.required),
+      membershipDate: new FormControl(null),
+      membershipStatusId: new FormControl(null),
+      photoUrl: new FormControl(""),
+      nomineeName: new FormControl(""),
+      nomineeAddress: new FormControl(""),
+      nomineePhoneNumber: new FormControl(""),
+      introducedByMemberId: new FormControl(null),
+      nid: new FormControl(""),
+      genderId: new FormControl(null, Validators.required),
+      maritalStatusId: new FormControl(null, Validators.required),
+      membershipTypeId: new FormControl(null, Validators.required),
+      religionId: new FormControl(null, Validators.required),
+      mobileBankingId: new FormControl(null, Validators.required),
+      countryId: new FormControl(null),
+      divisionId: new FormControl(null),
+      districtId: new FormControl(null),
+      upazilaId: new FormControl(null),
+      unionId: new FormControl(null),
+      villageName: new FormControl(""),
+      educationLevelId: new FormControl(null, Validators.required),
+      designationId: new FormControl(null, Validators.required),
+      serviceDepartmentId: new FormControl(null, Validators.required),
+      serviceDivisionId: new FormControl(null, Validators.required),
+      serviceLocationCountryId: new FormControl(null, Validators.required),
+      serviceLocationDivisionId: new FormControl(null, Validators.required),
+      serviceLocationDistrictId: new FormControl(null, Validators.required),
+      serviceLocationUpazilaId: new FormControl(null, Validators.required),
+      isActive: new FormControl(true, Validators.required),
+      createBy: new FormControl(this.auth.getUserId()),
+      createDate: new FormControl(new Date()),
+      deleteBy: new FormControl(null),
+      deleteDate: new FormControl(null),
+      updateBy: new FormControl(null),
+      updateDate: new FormControl(null)
+    });
+  }
+
+  searchForm() {
+    this.frmSearch = this.fb.group({
+      membershipNumberSrch: new FormControl('')
+    })
   }
 
    deviceRegistration() {

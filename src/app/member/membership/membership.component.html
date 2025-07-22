@@ -1,3 +1,4 @@
+
 <p>membership working!</p>
 
 <p-confirmDialog [baseZIndex]="10000"></p-confirmDialog>
@@ -11,7 +12,7 @@
     </ng-template>
 
     <div>
-        <form [formGroup]="frmsrc">
+        <form [formGroup]="frmSearch">
             <div>
                 <div class="" style=" cursor: pointer; position: absolute; " class="mt-3" (click)="deviceRegistration()">
                     <i class="pi pi-box" style="font-weight: bold; font-size: 2rem"></i>
@@ -19,7 +20,7 @@
                 <div style=" display: flex;  justify-content: flex-end;">
                     <div class=" col-5 sm:col-5 md:col-3 lg:col-3 xl:col-3">
                         <input type="text" class="p-2  w-full" placeholder="{{'Membership Number' | translate}}"
-                            formControlName="membershipNumber" pInputText />
+                            formControlName="membershipNumberSrch" pInputText />
                     </div>
                     <div class=" mt-3" style="width: 50px;">
                         <div class="" style=" cursor: pointer;" (click)="search()">
@@ -31,36 +32,272 @@
         </form>
     </div>
 
-<div>
-    <form [formGroup]="frmsrc">
-        <div>
-            <div class="field col-12 md:col-12 lg:col-12 xl:col-12">
-                <div class="card-footer">
-                    <p-button 
-                        styleClass="p-button-success p-button-sm mr-2" type="submit" icon="pi pi-check"
-                        label="{{'DeviceAssign' | translate}}">
-                    </p-button>         
-                </div>
-            </div> 
-        </div>
-    </form>
-</div>
-
-
-   <p-accordion [(activeIndex)]="activeTabs" [multiple]="true">
+<p-accordion [(activeIndex)]="activeTabs" [multiple]="true">
   <p-accordionTab header="First">
         <div>
-            <form [formGroup]="frmsrc">
-                <div>
+        
+        <form [formGroup]="frm">
+            <div class="formgrid grid">
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'MembershipNumber'|translate}}</label><span class="text-danger"> *</span><br>
+            <input type="text" class="p-2  w-full" placeholder="" formControlName="membershipNumber" pInputText />
+            </div>
+                    
+             
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'Name'|translate}}</label><span class="text-danger"> *</span><br>
+                <input type="text" class="p-2  w-full" placeholder="" formControlName="name" pInputText />
+                <span *ngIf="frm.controls['name'].invalid && frm.controls['name'].touched "
+                    class="text-danger">
+                    {{'Name'|translate}} {{'REQUIRED'|translate}}
+                </span>
+            </div>
+           
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'FatherName'|translate}}</label><span class="text-danger"> </span><br>
+                <input type="text" class="p-2  w-full" placeholder="" formControlName="fatherName" pInputText />
+                <span *ngIf="frm.controls['name'].invalid && frm.controls['fatherName'].touched "
+                    class="text-danger">
+                    {{'fatherName'|translate}} {{'REQUIRED'|translate}}
+                </span>
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'MotherName'|translate}}</label><span class="text-danger"> </span><br>
+                <input type="text" class="p-2  w-full" placeholder="" formControlName="motherName" pInputText />
+                <span *ngIf="frm.controls['motherName'].invalid && frm.controls['motherName'].touched "
+                    class="text-danger">
+                    {{'motherName'|translate}} {{'REQUIRED'|translate}}
+                </span>
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'SpouseName'|translate}}</label><span class="text-danger"> </span><br>
+                <input type="text" class="p-2  w-full" placeholder="" formControlName="spouseName" pInputText />
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'DateOfBirth'|translate}}</label><span class="text-danger"> </span><br>
+            <input type="text" class="p-2  w-full" placeholder="" formControlName="dateOfBirth" pInputText />
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'PhoneNumber'|translate}}</label><span class="text-danger"> *</span><br>
+                <input type="text" class="p-2  w-full" placeholder="" formControlName="phoneNumber" pInputText />
+                <span *ngIf="frm.controls['phoneNumber'].invalid && frm.controls['phoneNumber'].touched "
+                    class="text-danger">
+                    {{'phoneNumber'|translate}} {{'REQUIRED'|translate}}
+                </span>
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'AlternatePhoneNumber'|translate}}</label><span class="text-danger"> </span><br>
+            <input type="text" class="p-2  w-full" placeholder="" formControlName="alternatePhoneNumber" pInputText />
+            </div>
+
+            
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'EmailAddress'|translate}}</label><span class="text-danger"> </span><br>
+            <input type="text" class="p-2  w-full" placeholder="" formControlName="emailAddress" pInputText />
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'MembershipDate'|translate}}</label><span class="text-danger"> *</span><br>
+            <input type="text" class="p-2  w-full" placeholder="" formControlName="membershipDate" pInputText />
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'NID'|translate}}</label><span class="text-danger"> </span><br>
+            <input type="text" class="p-2  w-full" placeholder="" formControlName="nID" pInputText />
+            </div>
+
+            
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'NomineeName'|translate}}</label><span class="text-danger"> </span><br>
+            <input type="text" class="p-2  w-full" placeholder="" formControlName="nomineeName" pInputText />
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'NomineeAddress'|translate}}</label><span class="text-danger"> </span><br>
+            <input type="text" class="p-2  w-full" placeholder="" formControlName="nomineeAddress" pInputText />
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'NomineePhoneNumber'|translate}}</label><span class="text-danger"> </span><br>
+            <input type="text" class="p-2  w-full" placeholder="" formControlName="nomineePhoneNumber" pInputText />
+            </div>
+            
+            
+           <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'IntroducedByMemberId'|translate}}</label><span class="text-danger"> </span>
+                <p-dropdown [options]="membershipList" [style]="{'width':'100%'}" formControlName="introducedByMemberId"
+                    [filter]="true" filterBy="name" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="name" optionValue="id"></p-dropdown><br>
+                
+            </div>
+
+           
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'GenderId'|translate}}</label><span class="text-danger"> *</span>
+                <p-dropdown [options]="genderList" [style]="{'width':'100%'}" formControlName="genderId"
+                    [filter]="true" filterBy="name" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="name" optionValue="id"></p-dropdown><br>
+                
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'MaritalStatusId'|translate}}</label><span class="text-danger"> *</span>
+                <p-dropdown [options]="maritalStatusList" [style]="{'width':'100%'}" formControlName="maritalStatusId"
+                    [filter]="true" filterBy="name" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="name" optionValue="id"></p-dropdown><br>
+                
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'MembershipTypeId'|translate}}</label><span class="text-danger"> *</span>
+                <p-dropdown [options]="membershipTypeList" [style]="{'width':'100%'}" formControlName="membershipTypeId"
+                    [filter]="true" filterBy="name" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="name" optionValue="id"></p-dropdown><br>
+                
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'ReligionId'|translate}}</label><span class="text-danger"> *</span>
+                <p-dropdown [options]="religionList" [style]="{'width':'100%'}" formControlName="religionId"
+                    [filter]="true" filterBy="name" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="name" optionValue="id"></p-dropdown><br>
+                
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'MobileBankingId'|translate}}</label><span class="text-danger"> *</span>
+                <p-dropdown [options]="mobileBankingList" [style]="{'width':'100%'}" formControlName="mobileBankingId"
+                    [filter]="true" filterBy="name" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="name" optionValue="id"></p-dropdown><br>
+                
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'CountryId'|translate}}</label><span class="text-danger"> *</span>
+                <p-dropdown [options]="countryList" [style]="{'width':'100%'}" formControlName="countryId"
+                    [filter]="true" filterBy="name" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="name" optionValue="id"></p-dropdown><br>
+                
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'DivisionId'|translate}}</label><span class="text-danger"> *</span>
+                <p-dropdown [options]="divisionList" [style]="{'width':'100%'}" formControlName="divisionId"
+                    [filter]="true" filterBy="name" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="name" optionValue="id"></p-dropdown><br>
+                
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'DistrictId'|translate}}</label><span class="text-danger"> *</span>
+                <p-dropdown [options]="districtList" [style]="{'width':'100%'}" formControlName="districtId"
+                    [filter]="true" filterBy="name" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="name" optionValue="id"></p-dropdown><br>
+                
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'UpazilaId'|translate}}</label><span class="text-danger"> *</span>
+                <p-dropdown [options]="upazilaList" [style]="{'width':'100%'}" formControlName="upazilaId"
+                    [filter]="true" filterBy="name" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="name" optionValue="id"></p-dropdown><br>
+                
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'UnionId'|translate}}</label><span class="text-danger"> </span>
+                <p-dropdown [options]="unionList" [style]="{'width':'100%'}" formControlName="unionId"
+                    [filter]="true" filterBy="name" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="name" optionValue="id"></p-dropdown><br>
+                
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'VillageName'|translate}}</label><span class="text-danger"> </span><br>
+            <input type="text" class="p-2  w-full" placeholder="" formControlName="villageName" pInputText />
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'EducationLevelId'|translate}}</label><span class="text-danger"> *</span>
+                <p-dropdown [options]="educationLevelList" [style]="{'width':'100%'}" formControlName="educationLevelId"
+                    [filter]="true" filterBy="name" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="name" optionValue="id"></p-dropdown><br>
+                
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'DesignationId'|translate}}</label><span class="text-danger"> </span>
+                <p-dropdown [options]="designationList" [style]="{'width':'100%'}" formControlName="designationId"
+                    [filter]="true" filterBy="name" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="name" optionValue="id"></p-dropdown><br>
+                
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'ServiceDepartmentId'|translate}}</label><span class="text-danger"> </span>
+                <p-dropdown [options]="serviceDepartmentList" [style]="{'width':'100%'}" formControlName="serviceDepartmentId"
+                    [filter]="true" filterBy="name" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="name" optionValue="id"></p-dropdown><br>
+                
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'ServiceDivisionId'|translate}}</label><span class="text-danger"> </span>
+                <p-dropdown [options]="serviceDivisionList" [style]="{'width':'100%'}" formControlName="serviceDivisionId"
+                    [filter]="true" filterBy="name" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="name" optionValue="id"></p-dropdown><br>
+                
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'ServiceLocationCountryId'|translate}}</label><span class="text-danger"> </span>
+                <p-dropdown [options]="countryList" [style]="{'width':'100%'}" formControlName="serviceLocationCountryId"
+                    [filter]="true" filterBy="name" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="name" optionValue="id"></p-dropdown><br>
+                
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'ServiceLocationDivisionId'|translate}}</label><span class="text-danger"> </span>
+                <p-dropdown [options]="divisionList" [style]="{'width':'100%'}" formControlName="serviceLocationDivisionId"
+                    [filter]="true" filterBy="name" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="name" optionValue="id"></p-dropdown><br>
+                
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'ServiceLocationDistrictId'|translate}}</label><span class="text-danger"> </span>
+                <p-dropdown [options]="districtList" [style]="{'width':'100%'}" formControlName="serviceLocationDistrictId"
+                    [filter]="true" filterBy="name" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="name" optionValue="id"></p-dropdown><br>
+                
+            </div>
+
+            <div class="field col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4">
+                <label>{{'ServiceLocationUpazilaId'|translate}}</label><span class="text-danger"> </span>
+                <p-dropdown [options]="upazilaList" [style]="{'width':'100%'}" formControlName="serviceLocationUpazilaId"
+                    [filter]="true" filterBy="name" [showClear]="true" placeholder="{{'SELECT'|translate}}"
+                    optionLabel="name" optionValue="id"></p-dropdown><br>
+                
+            </div>
+
                     <div class="field col-12 md:col-12 lg:col-12 xl:col-12">
                         <div class="card-footer">
                             <p-button styleClass="p-button-success p-button-sm mr-2" type="submit" icon="pi pi-check"
-                                label="{{'DeviceAssign' | translate}}">
+                                label="{{'SaveMembership' | translate}}">
                             </p-button>
                         </div>
                     </div>
                 </div>
-            </form>
+        </form>
+
         </div>
   </p-accordionTab>
   <p-accordionTab header="Second">
