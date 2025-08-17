@@ -89,6 +89,8 @@ activeTabs: boolean[] = [false, false];
     this.membershipForm();
     this.searchForm();
 
+    this.getAllCountry();
+
 }
 
   membershipForm() {
@@ -147,6 +149,17 @@ activeTabs: boolean[] = [false, false];
       membershipNumberSrch: new FormControl('')
     })
   }
+
+
+  getAllCountry() {
+    this.gSvc.postdata("api/Country/GetAllCountryAsync", {}).subscribe(res => {
+      this.countryList = res;
+    }, err => {
+      this.toastrService.error(err.message);
+      console.log('Exception: (getCountry)' + err.message);
+    })
+  }
+
 
    deviceRegistration() {
     this.visibleDeviceRegistration = true;
