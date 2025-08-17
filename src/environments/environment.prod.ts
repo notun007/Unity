@@ -12,5 +12,6 @@ baseurl: "http://localhost:5269/" //Dev: Local
 //baseurl: "http://103.183.116.14:2210/" //Dev:TFAdmin
 //baseurl: "http://103.118.78.242:2301/" //NEW-Prod:SUN
 //baseurl: "https://smsapi.sundigital.com.bd/" //NEW-Prod:SUN
+//baseurl: "http://103.183.116.14:25000/" //Test
 
 }
