@@ -1,36 +1,12 @@
 <div class="layout-topbar bg-blue-500">
-    <!-- <a class="layout-topbar-logo topLogo" style="width: 10%; float: left !important;"
-        routerLink="/home/dashboard/msodashboard">        
-        <img src="assets/img/smslogo.jpg" alt=" logo" style="opacity: .8">
-        <span>SMS</span>
-    </a>
-    <a class="layout-topbar-logo topBalance" style="width: 10%; float: right !important;"
-        routerLink="/home/dashboard/msodashboard">
-        <div style="background: #6366f1;
-            color: #fff;            
-            border-radius: 6px;
-            padding-left: 5px;
-            padding-right: 15vh;
-            padding-bottom: 12px;
-            padding-top: 10px;
-            font-size: 15px;
-            text-align: center; 
-            width: 100%;
-            margin-top: -3px;"><span style="text-align: center;">Balance&nbsp;:&nbsp;{{comBalance}}</span></div>
-    </a> -->
-
+    
     <p-header style="padding: 0;margin: 0;" [ngStyle]="{'width': isMobile?'100%': screenSize==1024?'25%':'20%'}">
         <a class="layout-topbar-logo topLogo" style="width: 10%; float: left !important; margin-top: 5px;"
             [ngStyle]="{'margin-left': screenSize>912?'-5%':'0%'}" routerLink="/home/dashboard/msodashboard">
             <img src="assets/img/smslogo.jpg" alt=" logo" style="opacity: .8">
             <span class="text-white">SMS</span>
         </a>
-
-        <!-- <button #menubutton class="p-link layout-menu-button layout-topbar-button" style="margin-left: 5px; float: right;"
-            (click)="layoutService.onMenuToggle()">
-            <i class="pi pi-bars"></i>
-        </button> -->
-        <!-- <button type="button" pButton style="float: right;">{{'00000'}}</button> -->
+       
         <button *ngIf="!auth.isMso()" type="button" pButton id="balId"
             style="float: right; background: #0c7587; box-shadow: -5px 5px #52939f;">Balance :
             {{comBalance}}</button>
@@ -56,17 +32,7 @@
         <span><i class="pi  pi-envelope" style="font-size: 3rem; margin-right: 15px;"></i></span>
         <p-selectButton [options]="languageList"  [(ngModel)]="langCode" (onChange)="changeLange($event)"
             optionLabel="label" optionValue="value"></p-selectButton>
-
-        <!-- <p-menu #menu [popup]="true" [model]="menuItems"></p-menu>
-        <a class="ml-3" style="cursor: pointer; color: black;" (click)="menu.toggle($event)">
-            <img style="border-radius: 50%; width: 50px; margin-top: -5px; float: left;"
-                [src]="userInfo.photoUrl || './assets/img/default-user.jpg'">
-            <span class="mt-2 ml-2" style="float: left;">{{userInfo.display}}</span>
-        </a>-->
-        <!-- <a class="ml-3" style="cursor: pointer; color: black;" (click)="btnClick()">
-            <img style="border-radius: 50%; width: 50px; margin-top: -5px; float: left;"
-                [src]="userInfo.photoUrl || './assets/img/default-user.jpg'">
-        </a> -->
+        
         <a class="ml-3" style="cursor: pointer; color: black; display: flex;">
             <img style="border-radius: 50%; width: 30px; margin-top: -5px; float: left;"
                 [src]="this.photoUrl || './assets/img/default-user.jpg'">
@@ -134,25 +100,3 @@
     </ng-template>
 </p-dialog>
 
-<!-- <p-dialog header="Header" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}" [draggable]="false"
-    [resizable]="false">
-    <ng-template pTemplate="header">
-        <h5>{{'PASSWORD' | translate}} {{'CHANG' | translate}}</h5>
-    </ng-template>
-    <div class="modal-body">
-        <div class="formgrid grid">
-            <div class="field col-3 md:col-3">
-                <label>{{'NAME' | translate}} : </label>
-                <p>{{viewInfo.name}}</p>
-            </div>
-            <div class="field col-3 md:col-3">
-                <label>{{'DESCRIPTION' | translate}} : </label>
-                <p>{{viewInfo.description}}</p>
-            </div>
-        </div>
-    </div>
-    <ng-template pTemplate="footer">
-        <p-button icon="pi pi-times" (click)="displayModal=false" label="{{'CLOSE' | translate}}"
-            styleClass="p-button-text"></p-button>
-    </ng-template>
-</p-dialog> -->

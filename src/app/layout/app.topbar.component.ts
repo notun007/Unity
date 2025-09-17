@@ -33,8 +33,7 @@ export class AppTopBarComponent {
     @Input() public comBalance: number = 0;
 
     public userInfo: any = { id: 0, hrmEmployeeId: 0, loginID: '', cmnCompanyId: 0, employeeID: '', levelNo: 0, employeeName: '', companyName: '', companyType: '', photoUrl: '', display: '', isActive: false };
-    //items!: MenuItem[];
-
+   
     @ViewChild('menubutton') menuButton!: ElementRef;
 
     @ViewChild('topbarmenubutton') topbarMenuButton!: ElementRef;
@@ -54,10 +53,9 @@ export class AppTopBarComponent {
     ) {
                        
 
-        this.balService.currentBalance.subscribe(bal => 
-            //this.comBalance = bal
-            this.getBalance()
-        );
+        //**Asad-17092025*//
+        //this.balService.currentBalance.subscribe(bal => this.getBalance());
+
         this.screenSize = window.screen.width;
         if (window.screen.width < 913) { // 768px portrait
             this.isMobile = true;
@@ -71,8 +69,11 @@ export class AppTopBarComponent {
         ];
         this.translate.setDefaultLang(this.langCode);
 
-        this.getUserInfo();
         this.createForm();
+
+        //**Asad-17092025*//
+        //this.getUserInfo();
+        
     }
 
 
@@ -101,43 +102,26 @@ export class AppTopBarComponent {
                 this.userInfo.loginID = res.loginID;
                 this.userInfo.cmnCompanyId = res.cmnCompanyId;
                 this.userInfo.employeeID = res.employeeID;
-                this.userInfo.levelNo = res.levelNo;
-                this.userInfo.isActive = res.isActive;
                 this.userInfo.employeeName = res.employeeName;
                 this.userInfo.companyName = res.companyName;
-                this.userInfo.companyType = res.companyType;
                 this.userInfo.photoUrl = res.photoUrl;
-                this.userInfo.display = res.employeeName + ' (' + res.prefix + '-' + res.companyType + ')';
+                this.userInfo.display = res.employeeName;
             }
         }, err => {
-            //this.toastrService.error("Error! Brand not found");
+           
         });
 
         //this.getBalance();
     }
 
-    //@ViewChild('balfff') _bal!: ElementRef;
-
-
-    //New: 13.036.2024::XXXX
-    // getBalance() {  
-    //     this.gSvc.getdata("api/ScpUserRecharge/GetScpUserRechargeBalanceByUserId?secUserId=" + this.auth.getUserId()).subscribe((res: any) => {
-    //         if (res != null) {
-    //             this.comBalance = res;
-    //         }
-    //     }, err => {
-    //       this.toastrService.error("Error! Data Not Found-->");
-    //     })
-    //   }
-
-    //Old: 13.06.2024::XXXX
+    
     getBalance() {
             this.gSvc.postdata("api/ClientRecharge/GetLastRechargeByClientId?companyId=" + this.auth.getCompany(), {}).subscribe(res => {
             if (res != null) {
                 this.comBalance = res.balance;
             }
         }, err => {
-            //this.toastrService.error("Error! Brand not found");
+            
         })
     }
 
@@ -145,8 +129,6 @@ export class AppTopBarComponent {
     changeLange(obj: any) {
         this.getBalance();
         let len = obj.value
-        //this.translate.use(len);
-        //console.log(obj.value);
         if (this.auth.getLanguage() == 'bn') {
             this.auth.setlanguage('en');
 
@@ -161,10 +143,7 @@ export class AppTopBarComponent {
     }
 
     logout() {
-
-        //this.router.navigate(["login"]);
         this.auth.logout();
-        // this.router.navigate(['']);
     }
 
     menuItems: MenuItem[] = [
@@ -186,18 +165,12 @@ export class AppTopBarComponent {
             this._profileBtn.buttonViewChild.nativeElement.click();
         }, 0);
     }
-    // selectedItem:any;
-    // listItems = [{label: 'fa fa-user', value: 'v1'}, {label: 'fa fa-user-cog', value: 'v2'}];    
-
+   
     public formId: any;
     public frm!: FormGroup;
     public displayModal: boolean = false;
     changePassword() {
-        this.displayModal = true;
-        // this.frm = this.fb.group({
-        //     newPassword: new FormControl(""),
-        //     confirmPassword: new FormControl("")
-        // });
+        this.displayModal = true;   
     }
 
     createForm() {
@@ -205,7 +178,6 @@ export class AppTopBarComponent {
             id: new FormControl(0),
             cmnCompanyId: new FormControl(1),
             loginID: new FormControl(""),
-            //originalPassword: new FormControl("", Validators.required),
             password: new FormControl(""),
             newPassword: new FormControl("", Validators.required),
             confirmPassword: new FormControl("", Validators.required),
@@ -246,7 +218,6 @@ export class AppTopBarComponent {
                 this.frm.reset();
                 this.toastrService.success("Password Changed Successfully");
                 this.displayModal = false;
-                //this.auth.logout();
             } else {
                 this.toastrService.error("Password Change Error");
             }

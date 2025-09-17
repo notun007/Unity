@@ -26,10 +26,14 @@ export class LoginComponent implements OnInit {
   password!: string;
   genCaptcha: string = '';
   inCaptcha: string = '';
+
+  
   loginForm = new FormGroup({
-    username: new FormControl(''),
-    userPassword: new FormControl(''),
+    email: new FormControl(''),
+    password: new FormControl(''),
   });
+
+
   lodder:boolean=false;
   isMobile: boolean = false;
   constructor(
@@ -50,15 +54,17 @@ export class LoginComponent implements OnInit {
   };
 
   onSubmit(): void {
+   
     this.lodder=true;
     if (this.loginForm.valid && this._util.ValidCaptcha(this.genCaptcha, this.inCaptcha)) {
+       
       this.auth.login(this.loginForm.value).subscribe(
         (result: any) => {
           
-          //New: 07.09.2024
+          
+         //Commented On 17082025
           if(result != undefined){
               if(result.isAuhentic){
-
                 this.auth.setToken(result.token);
                 this.token = this.auth.decodeToken(result.token);  
               }
@@ -73,46 +79,51 @@ export class LoginComponent implements OnInit {
                 this.toastrService.warning("Unable to Authenticate");
                 return;
           }
-        
+
+                  
           if (result.isAuhentic == true) {
-       
-            this.auth.setView(this.isMobile);
-            this.auth.setIsSwitch('No');
-            this.auth.setlanguage('bn');
 
-            //New: 15032025
-            this.auth.setLoanModel(this.token.LnLoanModelId);
-            //alert(this.token.LnLoanModelId);
-            //Begin
-            if(this.token.CompanyTypeShortName == "MSO" && this.token.IsCompanyUser){
-              this.auth.setFirstLevelLoginId(this.token.UserName);
-            }
-            else if(this.token.CompanyTypeShortName == "LSO" && this.token.IsCompanyUser){
-              this.auth.setSecondLevelLoginId(this.token.UserName);
-            }
-            else if(this.token.CompanyTypeShortName == "SLSO" && this.token.IsCompanyUser){
-              this.auth.setThirdLevelLoginId(this.token.UserName);
-            }
-            //End
+            //this.router.navigate(['/home/dashboard/tfdashboard']);
 
+            //New: 16/09/2025
+            this.router.navigate(['/home/dashboard/msodashboard']);
 
-            //New
-            if(this.token.ApplicationId == '1'){
-            //Old
-            //if(this.auth.getApplicationId() == '1'){
-            this.router.navigate(['/home/dashboard/tfdashboard']);
-            }
-            else{
-              this.router.navigate(['/home/dashboard/msodashboard']);
-            }           
+           // alert('successfull login');
+
+            //Old: 16/09/2025      
+            // this.auth.setView(this.isMobile);
+            // this.auth.setIsSwitch('No');
+            // this.auth.setlanguage('bn');
+            // this.auth.setLoanModel(this.token.LnLoanModelId);
+
+            // if(this.token.CompanyTypeShortName == "MSO" && this.token.IsCompanyUser){
+            //   this.auth.setFirstLevelLoginId(this.token.UserName);
+            // }
+            // else if(this.token.CompanyTypeShortName == "LSO" && this.token.IsCompanyUser){
+            //   this.auth.setSecondLevelLoginId(this.token.UserName);
+            // }
+            // else if(this.token.CompanyTypeShortName == "SLSO" && this.token.IsCompanyUser){
+            //   this.auth.setThirdLevelLoginId(this.token.UserName);
+            // }
+
+            // if(this.token.ApplicationId == '1'){
+    
+            // this.router.navigate(['/home/dashboard/tfdashboard']);
+            // }
+            // else{
+            //   this.router.navigate(['/home/dashboard/msodashboard']);
+            // } 
+
           } else {
             this.lodder=false;
             this.toastrService.warning("Incorrect User ID or Password");
           }
+
+
         },
         (err: Error) => {
           this.lodder=false;
-          this.toastrService.error(err.message);
+         // this.toastrService.error(err.message);
         }
       );
     }else{

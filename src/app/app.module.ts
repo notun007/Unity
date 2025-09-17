@@ -82,7 +82,8 @@ export function createTranslateLoader(http: HttpClient) {    return new Translat
     WebProductsComponent,
     PaymentComponent,
     PrivacyPolicyComponent,
-    ExpenseComponent
+    ExpenseComponent,
+    
   ],
   imports: [
     CalendarModule,

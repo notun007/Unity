@@ -71,10 +71,11 @@ export class CompanyComponent implements OnInit {
 
   }
   ngOnInit(): void {
+
+
     this.genderList = [{ 'id': 1, "name": 'Male' }, { 'id': 2, "name": 'Female' }, { 'id': 3, "name": 'Others' }]
     this.getDivision();
-   // console.log(this.msoInfo.cmnCountryId);
-   
+     
    this.frmSerch = new FormGroup({
     cmnCompanyTypeId: new FormControl(0, [Validators.required]),
     companyId:new FormControl(null)
@@ -88,16 +89,12 @@ export class CompanyComponent implements OnInit {
       contactNo: new FormControl("", [Validators.required]),
       alternatePhone: new FormControl(),
       welcomeNote:new FormControl(),
-      //email: new FormControl("", [Validators.required]),
       email: new FormControl("", [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       zip: new FormControl(),
       cmnCompanyId: new FormControl(this.auth.getCompany()),
       cmnCompanyTypeId: new FormControl("", [Validators.required]),
 
-      //cmnCountryId: new FormControl(),
-      // cmnDivisionId: new FormControl(this.msoInfo.cmnDivisionId, [Validators.required]),
-      // cmnDistrictId: new FormControl(this.msoInfo.cmnDistrictId, [Validators.required]),
-
+      
       cmnCountryId: new FormControl(),
       cmnDivisionId: new FormControl("", [Validators.required]),
       cmnDistrictId: new FormControl("", [Validators.required]),
@@ -106,7 +103,6 @@ export class CompanyComponent implements OnInit {
       password: new FormControl(""),
       confirmPassword: new FormControl(""),
       cmnUpazillaId: new FormControl("", [Validators.required]),
-      //secUserTypeId: new FormControl("", [Validators.required]),
       address: new FormControl("", [Validators.required]),
       cmnUnionId: new FormControl(),
       fax: new FormControl(),
@@ -133,7 +129,6 @@ export class CompanyComponent implements OnInit {
     this.getCompanyType();
     this.getCountry();
     this.getSecUserType();
-   // this.getCompany();
   }
 getIsHideComPassword(){
        if(this.isHideComPassword == 'password'){
@@ -382,22 +377,15 @@ getIsHidePassword(){
     })
   }
 
-//Asad Added 28.11.2023
-
-  //File Upload
   clickOnBtnFile() {
     debugger;
     this._fileInput.nativeElement.value = "";
     this._fileInput.nativeElement.click();
-    //$('#attachedSingleFile').click();
   }
 
-  // public fileSrc: any;
-  // fileToUpload: any;
 
   @ViewChild('fileInput') _fileInput!: ElementRef;
   onFileChange() {
-    //debugger;
 
     if (this._fileInput.nativeElement.files.length > 0) {
       let file = this._fileInput.nativeElement.files[0];
@@ -419,12 +407,6 @@ getIsHidePassword(){
   }
 
    
-
-//end
-
-
-
-
   edit(res: any) {
     this.getCompany();
     this.frm.patchValue(res);
@@ -441,7 +423,6 @@ getIsHidePassword(){
     this.apiurl = "Common/Company/GetAttachmentByCompanyId";
     this.gSvc.postparam(this.apiurl, param).subscribe(res => {
       debugger;
-      //this.unionList = res;
       this.attachmentList=[];
       if (res.length > 0) {
         var resList: any[] = res;
@@ -491,18 +472,14 @@ getIsHidePassword(){
 
   fileToUpload: any;
   handleFileInput(event: Event) {
-    // Access the file from the event object
     const target = event.target as HTMLInputElement;
     const file: File | null = target.files?.[0] || null;
 
     if (file) {
       this.fileToUpload = file;
       this.uploadAvatar("", file)
-      // Handle the file
-      // You can access the file properties like file.name, file.size, etc.
     } else {
       alert("Error");
-      // No file selected or an error occurred
     }
   }
 
@@ -512,16 +489,11 @@ getIsHidePassword(){
   }
   uploadedDocuments: any = [];
   uploadAvatar(imageSrc: any, file: any) {
-    // if(this.uploadedDocuments.length < 5){
     this.uploadedDocuments.push({
       imageUrl: imageSrc,
       fileSize: file.size,
       fileName: file.name.replace(/ /g, '_'),
     });
-    //}else{
-    // this.genralService.openSnackBar('Maximum 5 documents can be uploaded');
-    // }
-
   }
 
   importClients($event: any) {
@@ -559,7 +531,6 @@ getIsHidePassword(){
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.gSvc.postdata("Common/Company/BulkSave", JSON.stringify(this.clientViews)).subscribe(res => {
-          //console.log(this.frm.value);
           if (res != undefined) {
             this.clientViews = [];
             this.hideButton = false;
@@ -603,7 +574,6 @@ getIsHidePassword(){
         var extlwr = ext.toLowerCase();
         var fileIndex = this.fileTypes.indexOf(extlwr);
         var fileSize = file.size / 1024 / 1024; // in MB
-        //var fileType = file.type;
         if (fileSize > 5) {
           this.toastrService.error('File size exceeds 5 MB', 'File Upload Error!');
         } else if (fileIndex === -1) {
@@ -623,7 +593,6 @@ getIsHidePassword(){
             viewFile: this.fileSrc,
             virtualPath: this.fileSrc.changingThisBreaksApplicationSecurity
           });
-          //this.frmFileAttachment={};
           this._doc.nativeElement.value = "";
         }
       } else {
@@ -681,7 +650,6 @@ getIsHidePassword(){
   }
 
 
-//Asad Added 
 submitForm(companyId: string) {
   debugger;
   const formData: FormData = new FormData();
@@ -699,7 +667,6 @@ showImage(r: any) {
   this.imageSrc = undefined;
 
   this.imageSrc = this.util.openSanitizedReportByUrl(environment.baseurl + r.virtualPath);
-  //this.imageSrc=environment.baseurl+r.filePath;
 }
 
 

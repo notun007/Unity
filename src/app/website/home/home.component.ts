@@ -23,7 +23,6 @@ import { AuthService } from 'src/app/services/auth.service';
 export class WebHomeComponent implements OnInit {
 
 
-  // New Code: 04.08.2024
   @Input() isVisible: boolean = false; // default value
   appSetting: any;
 
@@ -34,12 +33,14 @@ export class WebHomeComponent implements OnInit {
   @ViewChild(ChieldPaywithComponent) paywiths!: ChieldPaywithComponent;
   
   constructor(private router: Router, public layoutService: LayoutService, private toastrService: ToastrService,private gSvc:GeneralService, private auth: AuthService ) { 
+    
     this.getAppSetting();
   }
   
   info:any;
   isSms:any = true;
   ngOnInit(): void {
+
       this.getMsoInfo();
   };
 
@@ -54,15 +55,15 @@ export class WebHomeComponent implements OnInit {
   }
   
   login() {
+    
     this.router.navigateByUrl(environment.baseurl + '#/login')
   }
   getMsoInfo(){
     this.gSvc.getdata("Common/Company/GetMainServiceOperator").subscribe(res => {
       this.info = res;
     }, err => {
-      JSON.stringify(err.message)
-      this.toastrService.error(err.message);
-      //this.toastrService.error("Logo Not found ");
+      // JSON.stringify(err.message)
+      // this.toastrService.error(err.message);
     })
   }
   

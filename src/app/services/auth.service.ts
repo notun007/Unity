@@ -474,7 +474,12 @@ getThirdLevelLoginId(): string | null{
   }
 
   login(usercred: any): Observable<any> {
-    return this.http.post(environment.baseurl + 'Security/User/Authenticate', usercred);
+
+    //alert(JSON.stringify(usercred));
+    //New:17082025
+    return this.http.post(environment.baseurl + 'api/Account/authenticate', usercred);
+    //Old: 17082025
+    //return this.http.post(environment.baseurl + 'Security/User/Authenticate', usercred);
   }
   
   // Method to decode JWT token

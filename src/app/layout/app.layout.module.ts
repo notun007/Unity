@@ -1,6 +1,4 @@
 import { NgModule } from '@angular/core';
-//import { BrowserModule } from '@angular/platform-browser';
-//import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputTextModule } from 'primeng/inputtext';
@@ -24,30 +22,10 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { MenuModule } from 'primeng/menu';
 import { MenubarModule } from 'primeng/menubar';
-
-
-// import { AutoCompleteModule } from "primeng/autocomplete";
 import { CalendarModule } from "primeng/calendar";
-// import { ChipsModule } from "primeng/chips";
-// import { DropdownModule } from "primeng/dropdown";
-// import { InputMaskModule } from "primeng/inputmask";
-// import { InputNumberModule } from "primeng/inputnumber";
-// import { CascadeSelectModule } from "primeng/cascadeselect";
-// import { MultiSelectModule } from "primeng/multiselect";
-// import { InputTextareaModule } from "primeng/inputtextarea";
-// import { TableModule } from 'primeng/table';
-// import { ToastModule } from 'primeng/toast';
-// import { FileUploadModule } from 'primeng/fileupload';
-// import { FieldsetModule } from 'primeng/fieldset';
-// import { HttpLoaderFactory } from '../app.module';
-// import { ConfirmDialogModule } from 'primeng/confirmdialog';
-// import { MessagesModule } from 'primeng/messages';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { SplitButtonModule } from 'primeng/splitbutton';
-// import { CheckboxModule } from 'primeng/checkbox';
-// import { PanelModule } from 'primeng/panel';
-// import { DividerModule } from 'primeng/divider';
 
 
 @NgModule({
@@ -80,22 +58,8 @@ import { SplitButtonModule } from 'primeng/splitbutton';
         ReactiveFormsModule,
         DropdownModule,
         SplitButtonModule,
-
-
-        // AutoCompleteModule, 
         CalendarModule, 
-        // ChipsModule, 
-        // TableModule, 
-        // ConfirmDialogModule,
-        // MessagesModule, 
         DialogModule, 
-        // CheckboxModule, 
-        // FileUploadModule,
-        // ToastModule, 
-        // FieldsetModule, 
-        // RadioButtonModule, 
-        // PanelModule,
-        // DividerModule
     ],
     exports: [AppLayoutComponent]
 })

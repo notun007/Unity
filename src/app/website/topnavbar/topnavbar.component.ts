@@ -29,29 +29,33 @@ export class TopNavBarComponent implements OnInit  {
   packages:any[]=[{title:'Gold',image:'/image1.png',price:'300',description:''},{title:'Silver',image:'/image2.png',price:'200',description:''}]
   stb:any=[{title:'BMC 9',image:'/image1.png',price:'300',description:''},{title:'Silver',image:'/image2.png',price:'200',description:''}]
   ngOnInit(): void {
-   this.getMsoInfo();
-   this.getSSlInfo();
+
+  //this.getMsoInfo();
+  //  this.getSSlInfo();
+
   };
-  login(){
-    this.router.navigateByUrl(environment.baseurl+'#/login')
-  }
-  getMsoInfo(){
-    this.gSvc.getdata("Common/Company/GetMainServiceOperator").subscribe(res => {
-      this.msoInfo = res;
-      this.logopath= environment.baseurl+this.msoInfo.logo;
-    }, err => {
-      JSON.stringify(err.message)
-      this.toastrService.error(err.message);
-      //this.toastrService.error("Logo Not found ");
-    })
-  }
-  getSSlInfo() {
+
+  // login(){
+  //   this.router.navigateByUrl(environment.baseurl+'#/login')
+  // }
+
+  // getMsoInfo(){
+  //   this.gSvc.getdata("Common/Company/GetMainServiceOperator").subscribe(res => {
+  //     this.msoInfo = res;
+  //     this.logopath= environment.baseurl+this.msoInfo.logo;
+  //   }, err => {
+  //     JSON.stringify(err.message)
+  //     this.toastrService.error(err.message);
+  //   })
+  // }
+
+  // getSSlInfo() {  
+  //   this.gSvc.postdata("api/PaymentMethod/GetById?id=5", {}).subscribe(res => {
+  //     this.ssl = res;
+  //   }, err => {
+  //     this.ssl = null;
+  //   })
     
-    this.gSvc.postdata("api/PaymentMethod/GetById?id=5", {}).subscribe(res => {
-      this.ssl = res;
-    }, err => {
-      this.ssl = null;
-    })
-    
-  }
+  // }
+
 }

@@ -43,6 +43,10 @@ export class DashboardComponent implements OnInit {
         }
     }
     ngOnInit(): void {
+
+        alert('dashboard');
+
+
         this.getSubscriberList();
         this.getDeviceList();
         this.getDeviceHistoryList();
