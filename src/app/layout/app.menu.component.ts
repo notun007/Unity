@@ -14,18 +14,26 @@ import { ToastrService } from 'ngx-toastr';
 
 export class AppMenuComponent implements OnInit {
 
-    // token: any;
-
-    // loginId: any;
+    //no need
+    token: any;
+    loginId: any;
+     childMenuArry: any[] = [];
+    parentsMenu: any[] = [];
+    Module: any[] = [];
+    model1: any[] = [];
+    secUser:any
+    switchAllow: boolean = false;
+    //no need
 
     model: any[] = [];
-    // model1: any[] = [];
     link: string[] = []
-
      log!: FormGroup;
+
     // nullValue:any=null;
     //  //**Asad-17092025*//
     // //show:any= this.auth.getOldUserName();
+
+
     pMenu: any = {
         label: "",
         items: []
@@ -42,14 +50,12 @@ export class AppMenuComponent implements OnInit {
         icon: "",
         routerLink: this.link
     }
-    // childMenuArry: any[] = [];
-    // parentsMenu: any[] = [];
-    // Module: any[] = [];
-    
+       
      isMobile: boolean = false;
-    // secUser:any
+    
 
-    // switchAllow: boolean = false;
+    
+
 
     constructor(
                 private toastrService: ToastrService,
@@ -69,30 +75,25 @@ export class AppMenuComponent implements OnInit {
                 } else {
                         this.isMobile = false;
             }
-    
+                 
+
         //**Asad-17092025*//
         //this.getSecUserByLoginId();
         //New Addition on 18092025
         this.loadMenu('12fb1f96-b3cf-481b-bc4a-a52e26b0f33b');    
      }
 
-     ngOnInit(): void {
-      
+     
+     
+      ngOnInit(): void {
+
         alert('menu calling');
-
-    }
-
-
-    //   ngOnInit(): void {
-    //     alert('menu calling');
-
                  
-    //    // this.loadMenu('12fb1f96-b3cf-481b-bc4a-a52e26b0f33b');        
-
-    //     //**Asad-17092025*// 
-    //     //this.loadMenu(this.auth.getRole());
+       // this.loadMenu('12fb1f96-b3cf-481b-bc4a-a52e26b0f33b');        
+        //**Asad-17092025*// 
+        //this.loadMenu(this.auth.getRole());
         
-    // }
+    }
       
       loadMenu(id: any) {
 
@@ -100,10 +101,7 @@ export class AppMenuComponent implements OnInit {
         this.gSvc.getdata("api/MenuPermission/GetModuleMenuByRole?roleId=" + id).subscribe((res: any) => {
         //this.gSvc.getdata("Security/MenuPermission/ModuleMenuByRole?id=" + id).subscribe((res: any) => {
            
-        // console.log(JSON.stringify(res));
-        // alert(JSON.stringify(res));
-
-               
+                      
         if(this.auth.getLanguage()=='bn'){
             for (var item of res) {
                 this.ModuleMenu.label = item.labelBn;
@@ -125,18 +123,20 @@ export class AppMenuComponent implements OnInit {
             }
            }else{
             for (var item of res) {
-
-                alert('got it: ' + res.length);
-
+              
                 this.ModuleMenu.label = item.label;
 
                 this.ModuleMenu.icon = item.icon;
                 this.ModuleMenu.items = [];
                 for (var m of item.items) {
+
+                   
+
                     this.pMenu.label = m.label;                    
                     this.pMenu.items = [];
                     for (let child of m.items) {
-                        this.childMenu.label = child.label;
+
+                         this.childMenu.label = child.label;
                         this.childMenu.icon = child.icon;
                         this.childMenu.routerLink = [child.routerLink];
                         this.pMenu.items.push({ label: child.label, icon: child.icon, routerLink: [child.routerLink] });
@@ -144,6 +144,8 @@ export class AppMenuComponent implements OnInit {
                     this.ModuleMenu.items.push({ label: m.label, icon: item.icon, items: this.pMenu.items });
                 }
                 this.menulist.push({ label: item.label, items: this.ModuleMenu.items });
+
+              //  alert(JSON.stringify(this.menulist));
 
             }
 

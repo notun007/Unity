@@ -40,6 +40,7 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
     key: string = "";
 
     constructor(public layoutService: LayoutService, private cd: ChangeDetectorRef, public router: Router, private menuService: MenuService) {
+                          
         this.menuSourceSubscription = this.menuService.menuSource$.subscribe(value => {
             Promise.resolve(null).then(() => {
                 if (value.routeEvent) {
@@ -52,7 +53,7 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
                 }
             });
         });
-
+      
         this.menuResetSubscription = this.menuService.resetSource$.subscribe(() => {
             this.active = false;
         });
@@ -63,9 +64,13 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
                     this.updateActiveStateFromRoute();
                 }
             });
+
     }
 
     ngOnInit() {
+
+        alert('Allah');
+
         this.key = this.parentKey ? this.parentKey + '-' + this.index : String(this.index);
 
         if (this.item.routerLink) {
